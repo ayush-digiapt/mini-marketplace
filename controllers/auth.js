@@ -105,7 +105,8 @@ exports.login= function(req,res){
                                 //  res.status(200).send("successfull login");
                                     //res.status(200).send(role_id);
                                 //    res.res.sendStatus(token);
-                                    res.status(200).send(token);
+                                result=role_id;
+                                    res.status(200).send(result);
                                     // if(res.status===200)
                                     // {
                                     //     res.send(role_id);
