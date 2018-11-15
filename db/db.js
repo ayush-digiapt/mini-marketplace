@@ -6,9 +6,10 @@ var mysql=require('mysql');
 var config = {
   host    : 'localhost',
   user    : 'root',	
-  password: 'digipass',
+  password: 'root',
   database: 'mini_marketplace'
 };
+
 
 var connection;
 

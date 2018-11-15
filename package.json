@@ -6,15 +6,16 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "cookie-parser": "~1.4.3",
     "body-parse": "^0.1.0",
+    "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "dependency": "0.0.1",
     "express": "~4.16.0",
+    "git": "^0.1.5",
     "http-errors": "~1.6.2",
     "morgan": "~1.9.0",
     "mysql": "^2.16.0",
-    "pug": "2.0.0-beta11"
+    "pug": "2.0.0-beta11",
+    "random-token": "0.0.8"
   }
 }
-

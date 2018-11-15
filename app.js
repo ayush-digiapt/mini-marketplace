@@ -4,8 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
+//var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var productsRouter = require('./routes/products');
+var rolesRouter = require('./routes/roles');
+var authRouter = require('./routes/auth');
 
 var app = express();
 
@@ -19,13 +22,31 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.use('/auth', authRouter);
+//app.use('/index', indexRouter);
 app.use('/users', usersRouter);
+app.use('/products',productsRouter);
+app.use('/roles', rolesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
+// app.use(function(req, res, next) {
+//   var allowedOrigins = ['http://localhost:4200'];
+//   var origin = req.headers.origin;
+  
+//   if (allowedOrigins.indexOf(origin) > -1) {
+//       res.setHeader('Access-Control-Allow-Origin', origin);
+//   }
+//   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+//   res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, Authorization, Accept,Content-Length, X-Requested-With, X-PINGOTHER');
+//  if ('OPTIONS' === req.method) {
+//       res.sendStatus(200);
+//   } else {
+//       next();
+//   }
+// });
 
 // error handler
 app.use(function(err, req, res, next) {

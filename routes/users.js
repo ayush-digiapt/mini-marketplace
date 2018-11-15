@@ -9,7 +9,7 @@ var usersController = require("../controllers/users")
  
 
 /* POST create user. */
-router.post('/', usersController.createUser);
+router.post('/reg', usersController.createUser);
 
 
 module.exports = router;
