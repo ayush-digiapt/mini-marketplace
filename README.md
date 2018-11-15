@@ -37,15 +37,15 @@ npm install
 ```
 #!shell  
 
-mysql -umini-marketplace root -pmini-marketplace
-create user 'mini-marketplace'@'localhost' identified by 'mini-marketplace';
-drop database mini-marketplace;
-create database mini-marketplace;
-grant all privileges on mini-marketplace.* to 'mini-marketplace'@'localhost' with grant option;
+mysql -umini_marketplace  -pmini_marketplace
+create user 'mini_marketplace'@'localhost' identified by 'mini_marketplace';
+drop database mini_marketplace;
+create database mini_marketplace;
+grant all privileges on mini_marketplace.* to 'mini_marketplace'@'localhost' with grant option;
 exit;
-mysql -u mini-marketplace -pmini-marketplace mini-marketplace < db/schema.sql;
+mysql -u mini_marketplace -pmini_marketplace mini_marketplace < db/schema.sql;
 
-mysql -u mini-marketplace -pmini-marketplace mini-marketplace < db/mock.sql
+mysql -u mini_marketplace -pmini_marketplace mini_marketplace < db/mock.sql
 
 ```
 
@@ -55,7 +55,7 @@ mysql -u mini-marketplace -pmini-marketplace mini-marketplace < db/mock.sql
 ```
 #!shell
 
-sequelize-auto -o "./models" -d mini-marketplace -h localhost -u mini-marketplace -p 3306 -x mini-marketplace -e mysql
+sequelize-auto -o "./models" -d mini_marketplace -h localhost -u mini_marketplace -p 3306 -x mini_marketplace -e mysql
 
 ```
 
@@ -87,3 +87,6 @@ PORT=3000 NODE_ENV=development DEBUG=mini-marketplace:* npm start
 PORT=3000 NODE_ENV=development DEBUG=mini-marketplace:* forever start bin/www 
 
 ```
+
+
+#https://gist.github.com/andrewmunro/030f0bf62453239c495b0347c8cd1247
