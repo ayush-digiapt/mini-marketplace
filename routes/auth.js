@@ -9,7 +9,7 @@ var authController = require("../controllers/auth")
 router.post('/login', authController.login);
 
 /* logout. */
-router.get('/login', authController.logout);
+router.get('/logout', authController.logout);
 
 
 

@@ -166,7 +166,7 @@ exports.logout = function(req,res){
     console.log("body: ",req.body);
     var connection = db.getDbConnection();
    
-    queryStatement = "delete * from sessions where token ='"+token+"'";
+    queryStatement = "delete from sessions where token ='"+req.headers.token+"'";
     connection.query(queryStatement, function(err,result)
     {
         if(err){

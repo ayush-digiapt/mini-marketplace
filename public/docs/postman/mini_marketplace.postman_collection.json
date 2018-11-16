@@ -249,6 +249,26 @@
 				"description": "add fav product"
 			},
 			"response": []
+		},
+		{
+			"name": "localhost:3000/auth/logout",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "token",
+						"value": "pdj29tf5eaie"
+					}
+				],
+				"body": {},
+				"url": "localhost:3000/auth/logout",
+				"description": "logout API"
+			},
+			"response": []
 		}
 	]
 }
