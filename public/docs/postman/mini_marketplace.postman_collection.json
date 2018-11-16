@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "localhost:3000/users",
+			"name": "localhost:3000/users/reg",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -19,48 +19,53 @@
 					"mode": "raw",
 					"raw": "{\n\t\"name\":\"ayush\",\n\t\"email\":\"ayushjk1@gmail.com\",\n\t\"password\":\"12345qwert\",\n\t\"mobile\":8978675678,\n\t\"role_id\":2,\n\t\"address_line1\":\"bangalore\",\n\t\"address_line2\":\"indoreahkfajf\",\n\t\"city\":\"bangalore\",\n\t\"state\":\"karnakata\",\n\t\"pincode\":487987\n\t\n}"
 				},
-				"url": "http://localhost:3000/users",
+				"url": "localhost:3000/users/reg",
 				"description": "create users"
 			},
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/roles",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {},
-				"url": "http://localhost:3000/roles",
-				"description": "get roles"
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:3000/auth/login",
+			"name": "localhost:3000/auth/login",
 			"request": {
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
 						"value": "application/json"
+					},
+					{
+						"key": "token",
+						"value": "",
+						"disabled": true
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"email\":\"ayushranka23@gmail.com\",\n\t\"password\":\"passwor23\"\n}"
+					"raw": "{\n\t\"email\":\"ranji80@gmail.com\",\n\t\"password\":\"12345qwert\"\n}"
 				},
-				"url": "http://localhost:3000/auth/login",
+				"url": "localhost:3000/auth/login",
 				"description": "for login"
 			},
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/products",
+			"name": "localhost:3000/roles",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"body": {},
-				"url": "http://localhost:3000/products",
+				"url": "localhost:3000/roles",
+				"description": "get roles"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": "localhost:3000/products",
 				"description": "get all products"
 			},
 			"response": []
@@ -69,7 +74,16 @@
 			"name": "localhost:3000/products/sellerProducts",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "token",
+						"value": "pdj29tf5eaie"
+					}
+				],
 				"body": {},
 				"url": "localhost:3000/products/sellerProducts",
 				"description": "get seller products"
@@ -77,39 +91,47 @@
 			"response": []
 		},
 		{
-			"name": "localhost:3000/products",
+			"name": "localhost:3000/products/add",
 			"request": {
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
 						"value": "application/json"
+					},
+					{
+						"key": "token",
+						"value": "pdj29tf5eaie"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"token\":\"ga2l5ug9ynhs\",\n\t\"name\":\"mi phone\",\n\t\"description\":\"mi phone with charger\",\n\t\"price\":10000,\n\t\"quantity\":34\n\t\n}"
+					"raw": "{\n\t\"name\":\"mi charger\",\n\t\"description\":\"mi phone with charger\",\n\t\"price\":10000,\n\t\"quantity\":34\n}"
 				},
-				"url": "localhost:3000/products",
+				"url": "localhost:3000/products/add",
 				"description": "add product"
 			},
 			"response": []
 		},
 		{
-			"name": "localhost:3000/products",
+			"name": "localhost:3000/products/edit",
 			"request": {
 				"method": "PUT",
 				"header": [
 					{
 						"key": "Content-Type",
 						"value": "application/json"
+					},
+					{
+						"key": "token",
+						"value": "pdj29tf5eaie"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"token\":\"ga2l5ug9ynhs\",\n\t\"name\":\"chai\",\n\t\"description\":\"chai pi lo\",\n\t\"price\":500,\n\t\"quantity\":35\n\t\n}"
+					"raw": "{\n\t\"name\":\"phone\",\n\t\"description\":\"phone with charger\",\n\t\"price\":500,\n\t\"quantity\":35\n\t\n}"
 				},
-				"url": "localhost:3000/products",
+				"url": "localhost:3000/products/edit",
 				"description": "edit product"
 			},
 			"response": []
@@ -126,13 +148,105 @@
 			"response": []
 		},
 		{
-			"name": "localhost:3000/products/1",
+			"name": "localhost:3000/products/:id",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"body": {},
 				"url": "localhost:3000/products/1",
 				"description": "delete product"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/products/removefav/:id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "token",
+						"value": "ec8p0yz8l5te"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n}\n"
+				},
+				"url": "localhost:3000/products/removefav/19",
+				"description": "remove fav product"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/products/search",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "search",
+						"value": "mi phone"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "localhost:3000/products/search",
+				"description": "search product"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/products/getfavproducts",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "token",
+						"value": "ozy9awgqk672"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "localhost:3000/products/getfavproducts",
+				"description": "get sellers products"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/products/addfav/:id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "token",
+						"value": "ec8p0yz8l5te"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "localhost:3000/products/addfav/19",
+				"description": "add fav product"
 			},
 			"response": []
 		}

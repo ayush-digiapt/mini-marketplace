@@ -2,9 +2,9 @@ var express = require('express');
 var db = require('../db/db');
 var router = express.Router();
 
-exports.getOneProduct= function(req,res){
+// exports.getOneProduct= function(req,res){
     
-}
+// }
 
 exports.getAllProducts= function(req,res){
 
@@ -48,27 +48,65 @@ exports.getSellerProducts= function(req,res){
     
     dbConnection = db.getDbConnection();
     
-    var queryStatement = "select name ,email, mobile, address_line1, address_line1, city, state, pincode from users where is_archived=0 and role_id=1";
+    var queryStatement = "select user_id from sessions where token='"+req.headers.token+"'";
 
-    console.log("query to be exectuted:: ",queryStatement);
+    //console.log("query to be exectuted:: ",queryStatement);
 
     dbConnection.query(queryStatement,function(err,result){
 		if(err) {
 			console.log("error: ",err);
             res.status(400).send(err);	
         }	
-		//  else  {
-        //     console.log("success: ",result);
-        //     res.status(200).send(result);
-        // }
-        else{
-            console.log("success: ",result);
-            if(result.length === 0){
-                res.status(204).send("no user found");
-            } else {
-                res.status(200).send(result);
-            }
+        else if(result.length>0){
+            console.log(result);
+            var user_id=result[0].user_id;
+            console.log(user_id);
+            console.log("user_id is "+user_id);
+
+            queryStatement2="select id from sellers where user_id="+user_id+"";
+            dbConnection.query(queryStatement2,function(err,result2){
+
+                if(err){
+                    console.log(err);
+                    res.status(400).send(err);
+                }
+                else if(result2.length>0){
+                    console.log(result2);
+                    var seller_id=result2[0].id;
+                    console.log(seller_id);
+                    console.log("seller_id is "+seller_id);
+
+                    queryStatement3="select id, name, description, price, quantity from products where seller_id="+seller_id+"";
+                    dbConnection.query(queryStatement3, function(err,result3){
+                        if(err){
+                            console.log(err);
+                            res.status(400).send(err);
+                        }
+                        else if(result3.length>0){
+                            console.log(result3);
+                            res.status(200).send(result3);
+                        }
+                        else{
+                            console.log("no data found");
+                            res.status(204).send("no data found")
+                        }
+
+                    });
+                }
+                else{
+                    console.log("seller_id not found");
+                    res.status(204).send("seller_id not found");
+
+                }
+              
+            });
+
         }
+        else{
+            console.log("user_id not found");
+            res.status(204).send("user_id not found");
+        }
+		
        
         console.log("exiting from getSellerProducts");
     });

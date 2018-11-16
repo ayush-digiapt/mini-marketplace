@@ -25,10 +25,7 @@ exports.login= function(req,res){
 		// else {
         //    // console.log("success: ",result);
             else if(result.length>0){
-
-                if(id){
-                    logout();
-                }
+                
                 
                 
                 var queryStatement2 = "select id, role_id from users where email='"+req.body.email+"' and password='"+req.body.password+"'";

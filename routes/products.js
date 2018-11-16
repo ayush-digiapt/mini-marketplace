@@ -36,7 +36,7 @@ router.post('/add', productsController.addProduct);
 
 
 /* put edit product. */
-router.put('/', productsController.editProduct);
+router.put('/edit', productsController.editProduct);
 
 
 /* delete delete  product. */
