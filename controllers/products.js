@@ -121,7 +121,7 @@ exports.addProduct= function(req,res){
     else{
               
     
-    var queryStatement = "select user_id from sessions where token ='"+req.body.token+"'";
+    var queryStatement = "select user_id from sessions where token ='"+req.headers.token+"'";
 
     console.log("query to be exectuted:: ",queryStatement);
 
@@ -239,15 +239,15 @@ exports.addProduct= function(req,res){
     else{
               
     
-    var queryStatement = "select user_id from sessions where token ='"+req.body.token+"'";
+    var queryStatement = "select user_id from sessions where token ='"+req.headers.token+"'";
 
     console.log("query to be exectuted:: ",queryStatement);
 
     dbConnection.query(queryStatement,function(err,result){
         console.log(result);
         //var id= result.[0].user_id;
-        var user_id=result[0].user_id;
-        console.log("user_id is "+ user_id);
+        // var user_id=result[0].user_id;
+        // console.log("user_id is "+ user_id);
 
 		if(err) {
 			console.log("error: ",err);
@@ -259,8 +259,10 @@ exports.addProduct= function(req,res){
         // }
         else{
            // console.log("success: ",result);
-            if(result.length === 1){
+            if(result.length>0){
                 // res.status(204).send("no user found");
+                var user_id=result[0].user_id;
+                 console.log("user_id is "+ user_id);
                 console.log("user_id found");
 
                 queryStatement2="select id from sellers where user_id = "+user_id+"";
@@ -375,8 +377,8 @@ dbConnection.query(queryStatement,function(err,result){
 }
 
 
-exports.addfav= function(req,res){
-        console.log("entering into addproduct");
+exports.addFav= function(req,res){
+        console.log("entering into add fav products");
         
         console.log("body: ",req.body);
         dbConnection = db.getDbConnection();
@@ -384,7 +386,7 @@ exports.addfav= function(req,res){
     
      
         
-        var queryStatement = "select user_id from sessions where token ='"+req.body.token+"'";
+        var queryStatement = "select user_id from sessions where token ='"+req.headers.token+"'";
     
         console.log("query to be exectuted:: ",queryStatement);
     
@@ -434,7 +436,7 @@ exports.addfav= function(req,res){
                     
 
 
-exports.removefav= function(req,res){
+exports.removeFav= function(req,res){
     console.log("entering into removefav");
     
     console.log("body: ",req.body);
@@ -443,7 +445,7 @@ exports.removefav= function(req,res){
 
  
     
-    var queryStatement = "select user_id from sessions where token ='"+req.body.token+"'";
+    var queryStatement = "select user_id from sessions where token ='"+req.headers.token+"'";
 
     console.log("query to be exectuted:: ",queryStatement);
 
@@ -495,7 +497,8 @@ exports.removefav= function(req,res){
                 exports.search= function(req,res){
 
                     console.log("entering into search");
-                    var search=req.body.search;
+                   // var search=req.body.search;
+                   var search= req.headers.search;
     
                     console.log("body: ",req.body);
                     dbConnection = db.getDbConnection();
@@ -523,10 +526,13 @@ exports.removefav= function(req,res){
 
      console.log("entering into getFavProducts");
                                 
-     console.log("body: ",req.body);
+    // console.log("body: ",req.body);
      dbConnection = db.getDbConnection();
+     console.log("before header");
+     console.log(req.headers.token);
+     console.log("after header");
                     
-    var queryStatement = "select user_id from sessions where token ='"+req.body.token+"'";
+    var queryStatement = "select user_id from sessions where token ='"+req.headers.token+"'";
 
     console.log("query to be exectuted:: ",queryStatement);
 

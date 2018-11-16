@@ -5,28 +5,30 @@ var productsController = require("../controllers/products")
 
  
 
-/* get one products. */
-router.get('/:id', productsController.getOneProduct);
 
 /* get all products. */
 router.get('/', productsController.getAllProducts);
 
-/* get one products. */
+/* get sellers products. */
 router.get('/sellerProducts', productsController.getSellerProducts);
 
 
 /* add fav. */
-router.post('/addfav/:id', productsController.addfav);
+router.get('/addfav/:id', productsController.addFav);
 
-/* add fav. */
-router.post('/removefav/:id', productsController.removefav);
+/* remove fav. */
+router.get('/removefav/:id', productsController.removeFav);
 
 
 /* serch products. */
-router.post('/search', productsController.search);
+router.get('/search', productsController.search);
 
 /* get fav products products. */
-router.post('/getfavproducts', productsController.getFavProducts);
+router.get('/getfavproducts', productsController.getFavProducts);
+
+
+/* get one products. */
+router.get('/details/:id', productsController.getOneProduct);
 
 
 /* post add product. */

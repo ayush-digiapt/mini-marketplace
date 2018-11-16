@@ -25,6 +25,10 @@ exports.login= function(req,res){
 		// else {
         //    // console.log("success: ",result);
             else if(result.length>0){
+
+                if(id){
+                    logout();
+                }
                 
                 
                 var queryStatement2 = "select id, role_id from users where email='"+req.body.email+"' and password='"+req.body.password+"'";
@@ -55,6 +59,8 @@ exports.login= function(req,res){
                       
                             // res.status(200).send(" successfully login ");
                             // console.log("hii login successfull");
+
+                            
                             
                             var token = randomToken(12);
 
@@ -109,7 +115,8 @@ exports.login= function(req,res){
                                 var role= {role_id};
                                 //var token={token}
                                //res.status(200).send(token_variable);
-                               res.status(200).json({ token_variable });
+                               console.log(token_variable,role);
+                               res.status(200).json({ token_variable , role});
                                     
                                  //  res.res.sendStatus(role_id);
                                    //res.res.sendStatus(token);
