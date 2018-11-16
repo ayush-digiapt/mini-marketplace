@@ -14,20 +14,23 @@ router.get('/', productsController.getAllProducts);
 /* get one products. */
 router.get('/sellerProducts', productsController.getSellerProducts);
 
-// /* get one products. */
-// router.get('/DFGEW', productsController.getOneProduct);
 
-// /* add product. */
-// router.get('/removefav', productsController.addfav);
+/* add fav. */
+router.post('/addfav/:id', productsController.addfav);
 
-// /* remove product. */
-// router.get('/addfav', productsController.removefav);
+/* add fav. */
+router.post('/removefav/:id', productsController.removefav);
 
-// /* serch products. */
-// router.get('/search', productsController.search);
+
+/* serch products. */
+router.post('/search', productsController.search);
+
+/* get fav products products. */
+router.post('/getfavproducts', productsController.getFavProducts);
+
 
 /* post add product. */
-router.post('/', productsController.addProduct);
+router.post('/add', productsController.addProduct);
 
 
 /* put edit product. */

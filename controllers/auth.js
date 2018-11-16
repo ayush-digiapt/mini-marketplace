@@ -97,16 +97,32 @@ exports.login= function(req,res){
                                     console.log(err);
                                     res.status(400).send(err);
                                 } 
-                                if(result3.affectedRows === 1){ 
+                                else if(result3.affectedRows === 1){ 
                                     console.log('inserted');
                                     //res.status(200).send("Email is send ");
                                  //   console.log(role_id);
                                 //  console.log("successfull login");
                                 //  res.status(200).send("successfull login");
-                                    //res.status(200).send(role_id);
-                                //    res.res.sendStatus(token);
-                                result=role_id;
-                                    res.status(200).send(result);
+                                var token_variable={token};
+                                // console.log(token_variable);
+                                // res.status(200).send(token_variable);
+                                var role= {role_id};
+                                //var token={token}
+                               //res.status(200).send(token_variable);
+                               res.status(200).json({ token_variable });
+                                    
+                                 //  res.res.sendStatus(role_id);
+                                   //res.res.sendStatus(token);
+                               // result=role_id;
+                            //    if(role_id===1){
+                            //         res.status(200).send("1");
+                            //         console.log("1");
+                            //    }
+                            //    else{
+                            //     res.status(200).send("2");
+                            //     console.log("1");
+
+                            //    }
                                     // if(res.status===200)
                                     // {
                                     //     res.send(role_id);
@@ -116,7 +132,7 @@ exports.login= function(req,res){
                                 }
                                 
                                 
-                            
+                               
                         });
 
 
@@ -151,12 +167,12 @@ exports.logout = function(req,res){
     {
         if(err){
             console.log(err);
-            res.status(200).send(err);
+            res.status(400).send(err);
         }
         else if( result.affectedRows>0){
 
             console.log("logout successfully");
-            res.status(400).send("logout successfully");
+            res.status(200).send("logout successfully");
         }
         else{
             console.log("no login");

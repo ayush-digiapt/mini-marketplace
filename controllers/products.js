@@ -82,13 +82,15 @@ exports.addProduct= function(req,res){
     
     console.log("body: ",req.body);
     dbConnection = db.getDbConnection();
+    console.log("avc");
 
     var name=req.body.name;
     var description=req.body.description;
     var price=req.body.price;
     var quantity=req.body.quantity;
 
-
+    console.log(name);
+    console.log(description);console.log(price);console.log(quantity);
    
      if(name.length<3 || name.length>32)
     {
@@ -371,6 +373,232 @@ dbConnection.query(queryStatement,function(err,result){
 
 });
 }
+
+
+exports.addfav= function(req,res){
+        console.log("entering into addproduct");
+        
+        console.log("body: ",req.body);
+        dbConnection = db.getDbConnection();
+        var id = req.params.id;
+    
+     
+        
+        var queryStatement = "select user_id from sessions where token ='"+req.body.token+"'";
+    
+        console.log("query to be exectuted:: ",queryStatement);
+    
+        dbConnection.query(queryStatement,function(err,result){
+            console.log(result);
+            //var id= result.[0].user_id;
+            var user_id=result[0].user_id;
+            console.log("user_id is "+ user_id);
+    
+    		if(err) {
+    			console.log("error: ",err);
+                res.status(400).send(err);	
+            }	
+    		//  else  {
+            //     console.log("success: ",result);
+            //     res.status(200).send(result);
+            // }
+            
+               // console.log("success: ",result);
+               else if(user_id > 1){
+                    // res.status(204).send("no user found");
+                    console.log("user_id found");
+
+                    queryStatement2="insert into favourites(user_id, product_id, created) values("+user_id+","+id+",now())";
+                        dbConnection.query(queryStatement2,function(err,result2
+                            ){
+                            if(err){
+                                console.log(err);
+                                res.status(400).send(err);
+                            }
+                            else if(result2.affectedRows===1){
+                                console.log("added fav");
+                                res.status(201).send("added fav");
+                            }
+                            else{
+                                console.log("product not added as fav");
+                                res.status(204).send("product not added as fav");
+                            }
+                        });
+                    }
+                        else{
+                            console.log("user_id not found");
+                            res.status(204).send("user_id not found");
+                        }
+                        });
+                    }
+                    
+
+
+exports.removefav= function(req,res){
+    console.log("entering into removefav");
+    
+    console.log("body: ",req.body);
+    dbConnection = db.getDbConnection();
+    var id = req.params.id;
+
+ 
+    
+    var queryStatement = "select user_id from sessions where token ='"+req.body.token+"'";
+
+    console.log("query to be exectuted:: ",queryStatement);
+
+    dbConnection.query(queryStatement,function(err,result){
+        console.log(result);
+        //var id= result.[0].user_id;
+        var user_id=result[0].user_id;
+        console.log("user_id is "+ user_id);
+
+        if(err) {
+            console.log("error: ",err);
+            res.status(400).send(err);	
+        }	
+        //  else  {
+        //     console.log("success: ",result);
+        //     res.status(200).send(result);
+        // }
+        
+           // console.log("success: ",result);
+           else if(user_id > 1){
+                // res.status(204).send("no user found");
+                console.log("user_id found");
+
+                queryStatement2="delete from favourites where product_id="+id+" and user_id="+user_id+"";
+                    dbConnection.query(queryStatement2,function(err,result2
+                        ){
+                        if(err){
+                            console.log(err);
+                            res.status(400).send(err);
+                        }
+                        else if(result2.affectedRows===1){
+                            console.log("removed fav");
+                            res.status(201).send("removed fav");
+                        }
+                        else{
+                            console.log("product not removed as fav");
+                            res.status(204).send("product not removed as fav");
+                        }
+                    });
+                }
+                    else{
+                        console.log("user_id not found");
+                        res.status(204).send("user_id not found");
+                    }
+                    }); 
+                }
+
+
+                exports.search= function(req,res){
+
+                    console.log("entering into search");
+                    var search=req.body.search;
+    
+                    console.log("body: ",req.body);
+                    dbConnection = db.getDbConnection();
+                    queryStatement="select id, name, description, price, quantity from products where name='"+search+"' or description='"+search+"'";
+                    dbConnection.query(queryStatement,function(err,result){
+                        if(err){
+                            console.log(err);
+                            res.status(400).send(err);
+                        }
+                        else if(result.length>0){
+                            console.log(result);
+                            res.status(200).send(result);
+                        }
+                        else{
+                            console.log("no data by search");
+                            res.status(200).send("no data is found by search");
+                        }
+
+                    });
+
+                }
+
+    
+     exports.getFavProducts= function(req,res){
+
+     console.log("entering into getFavProducts");
+                                
+     console.log("body: ",req.body);
+     dbConnection = db.getDbConnection();
+                    
+    var queryStatement = "select user_id from sessions where token ='"+req.body.token+"'";
+
+    console.log("query to be exectuted:: ",queryStatement);
+
+    dbConnection.query(queryStatement,function(err,result){
+       
+
+        if(err) {
+            console.log("error: ",err);
+            res.status(400).send(err);	
+        }	
+       
+        
+          
+           else if(result.length > 0){
+            console.log(result);
+            //var id= result.[0].user_id;
+            var user_id=result[0].user_id;
+            console.log("user_id is "+ user_id);
+                // res.status(204).send("no user found");
+                console.log("user_id found");
+                queryStatement2="select id from sellers where user_id="+user_id+"";
+                dbConnection.query(queryStatement2,function(err,result2){
+                   
+                    if(err){
+                        console.log("error: ",err);
+                        res.status(400).send(err);	
+                    }
+                    else if(result2.length>0){
+                        var seller_id=result2[0].id;
+                        console.log("seller_id is "+ seller_id);
+                        console.log("seller_id found");
+                        queryStatement3="select id, name, description, price, quantity from products where seller_id="+seller_id+"";
+                        dbConnection.query(queryStatement3, function(err,result3){
+
+                            if(err){
+                                console.log("error: ",err);
+                                res.status(400).send(err);	
+                            }
+                            else if(result3.length>0){
+                                console.log(result3);
+                                res.status(200).send(result3);
+                            }
+                            else{
+                                console.log("no data found");
+                                res.status(204).send("no data found");
+                            }
+                        });
+
+
+                    }
+                    else{
+                        console.log("seller_id not found");
+                        res.status(204).send("seller_id not found");
+                    }
+                });
+
+
+                }
+                else{
+                    console.log("user_id not found");
+                   res.status(204).send("user_id not found");	
+                }
+            });
+        }
+
+            
+                
+
+
+               
+       
+
 
 
 
