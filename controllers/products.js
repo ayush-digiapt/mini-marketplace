@@ -407,19 +407,22 @@ exports.getOneProduct=function(req,res){
                            var user_id=result2[0].user_id;
                            var company_name=result2[0].company_name;
 
-                           queryStatement3="select name from users where id="+user_id+"";
+                           queryStatement3="select name, role_id from users where id="+user_id+"";
                            dbConnection.query(queryStatement3,function(err,result3){
                             if(err){
                                 console.log(err);
                                 res.status(400).send(err);
                             }
                             else if(result3.length>0){
-                                var user_name=result3[0].name;
-
-                                console.log(user_name,company_name,product_id,name,description,quantity,price);
+                                var seller_name=result3[0].name;
+                             //   var role_id=result3[0].role_id;
+                              
+                                console.log(seller_name,company_name,product_id,name,description,quantity,price);
                       //  res.status(200).send(user_name,company_name,product_id,name,description,quantity,price);
-                                res.status(200).json({ user_name,company_name,id,name,description,quantity,price});
-                            }
+                                res.status(200).json({ seller_name,company_name,id,name,description,quantity,price});
+                            
+                            
+                        }
                            });
                        }
 
@@ -654,8 +657,8 @@ exports.removeFav= function(req,res){
                     else if(result2.length>0){
                     //     var i=0;
                     //     var count=result2.length;
-                    //     var n=result2.length;
-                    //     console.log(result2.length);
+                       var n=result2.length;
+                      console.log(result2.length);
                     //      while(i<count){
                         
                         
