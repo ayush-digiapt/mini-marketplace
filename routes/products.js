@@ -21,7 +21,7 @@ router.get('/removefav/:id', productsController.removeFav);
 
 
 /* serch products. */
-router.get('/search', productsController.search);
+router.get('/search/:search', productsController.search);
 
 /* get fav products products. */
 router.get('/getfavproducts', productsController.getFavProducts);
@@ -36,7 +36,7 @@ router.post('/add', productsController.addProduct);
 
 
 /* put edit product. */
-router.put('/edit', productsController.editProduct);
+router.put('/edit/:id', productsController.editProduct);
 
 
 /* delete delete  product. */

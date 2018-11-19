@@ -1,6 +1,7 @@
 var express = require('express');
 var db = require('../db/db');
 var router = express.Router();
+var passwordHash = require('password-hash');
 
 function validateEmail(email) {
     // First check if any value was actually set
@@ -132,7 +133,11 @@ else if(state.length<3 || state.length>32)
     }
     
     else{
-        var queryStatement = "insert into users(name, email, password, mobile, role_id, address_line1, address_line2, city, state, pincode,is_archived, created, updated) values('"+name+"','"+email+"','"+password+"',"+mobile+","+role_id+",'"+address_line1+"','"+address_line2+"','"+city+"','"+state+"',"+pincode+",0,now(),now())";
+        var passwordHash = require('password-hash');
+
+        var hashedPassword = passwordHash.generate(password);
+        console.log(hashedPassword);
+        var queryStatement = "insert into users(name, email, password, mobile, role_id, address_line1, address_line2, city, state, pincode,is_archived, created, updated) values('"+name+"','"+email+"','"+hashedPassword+"',"+mobile+","+role_id+",'"+address_line1+"','"+address_line2+"','"+city+"','"+state+"',"+pincode+",0,now(),now())";
     
         console.log("query to be exectuted:: ",queryStatement);
     
@@ -203,5 +208,54 @@ else if(state.length<3 || state.length>32)
             console.log("exiting from createUsers");
         });
     }
+    }
+
+    exports.details=function(req,res){
+       
+        console.log("entering into details of users");
+        
+        // print inputs
+        console.log("request body: ", req.body);
+    
+        dbConnection = db.getDbConnection();
+
+        queryStatement="select user_id from sessions where token='"+req.headers.token+"'";
+        console.log(queryStatement);
+        dbConnection.query(queryStatement,function(err,result){
+            if(err){
+                console.log(err);
+                res.status(400).send(err);
+            }
+            else if(result.length>0){
+                var user_id=result[0].user_id;
+                console.log(user_id);
+                console.log("user_id "+user_id);
+
+                queryStatement2="select name from users where id="+user_id+"";
+                dbConnection.query(queryStatement2,function(err,result2){
+                    if(err){
+                      console.log(err);
+                      res.status(400).send(err);
+                    }
+                    else if(result2.length>0){
+                        console.log(result2);
+                        res.status(200).send(result2);
+                    }
+                    else{
+                        console.log("no data found");
+                        res.status(204).send("no data found");
+
+                    }
+                });
+                
+
+            }
+            else{
+                console.log("user_id not found");
+                res.status(204).send("user_id not found");
+            }
+        });
+
+
     }
 

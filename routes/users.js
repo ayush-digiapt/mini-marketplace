@@ -12,6 +12,11 @@ var usersController = require("../controllers/users")
 router.post('/reg', usersController.createUser);
 
 
+/* get deletails user. */
+router.get('/', usersController.details);
+
+
+
 module.exports = router;
 
 

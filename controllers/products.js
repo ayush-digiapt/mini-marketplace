@@ -166,9 +166,7 @@ exports.addProduct= function(req,res){
     dbConnection.query(queryStatement,function(err,result){
         console.log(result);
         //var id= result.[0].user_id;
-        var user_id=result[0].user_id;
-        console.log("user_id is "+ user_id);
-
+       
 		if(err) {
 			console.log("error: ",err);
             res.status(400).send(err);	
@@ -181,6 +179,9 @@ exports.addProduct= function(req,res){
            // console.log("success: ",result);
             if(result.length === 1){
                 // res.status(204).send("no user found");
+                var user_id=result[0].user_id;
+                console.log("user_id is "+ user_id);
+        
                 console.log("user_id found");
 
                 queryStatement2="select id from sellers where user_id = "+user_id+"";
@@ -226,6 +227,7 @@ exports.addProduct= function(req,res){
 
             } else {
                 res.status(204).send("user not found");
+                console.log("user not found");
             }
         }
        
@@ -305,8 +307,8 @@ exports.addProduct= function(req,res){
 
                 queryStatement2="select id from sellers where user_id = "+user_id+"";
                 dbConnection.query(queryStatement2,function(err,result2){
-                    var id=result2[0].id;
-                    console.log("seller_id is "+id);
+                    var seller_id=result2[0].id;
+                    console.log("seller_id is "+seller_id);
 
                     if(err)
                     {
@@ -317,7 +319,7 @@ exports.addProduct= function(req,res){
                     {
                         console.log("seller id found");
 
-                        queryStatement3="update products set name='"+name+"', description='"+description+"',price="+price+",quantity="+quantity+" where id="+id+"";
+                        queryStatement3="update products set name='"+name+"', description='"+description+"',price="+price+",quantity="+quantity+" where seller_id="+seller_id+" and id="+req.params.id+"";
                         dbConnection.query(queryStatement3,function(err,result3)
                         {
                             if(err)
@@ -365,22 +367,68 @@ exports.getOneProduct=function(req,res){
     
          var id = req.params.id;
         
-        var queryStatement = "select name, description, price, quantity from products where id="+id+" and is_archived=0";
+        var queryStatement = "select id, name, description, price, quantity, seller_id from products where id="+id+" and is_archived=0";
     
-        console.log("query to be exectuted:: ",queryStatement);
+       // console.log("query to be exectuted:: ",queryStatement);
     
         dbConnection.query(queryStatement,function(err,result){
             if(err) {
                 console.log("error: ",err);
                 res.status(400).send(err);		
-            } else{
-                console.log("success: ",result);
-                if(result.length === 0){
-                    res.status(204).send("no product found");
-                } else {
-                    res.status(200).send(result);
+            } 
+        
+              //  console.log("success: ",result);
+                else if(result.length > 0){
+                    var product_id=result[0].id;
+                    var name=result[0].name;
+                    var price=result[0].price;
+                    var description=result[0].description;
+                    var quantity=result[0].quantity;
+                    var seller_id=result[0].seller_id;
+                    console.log(product_id);
+                    console.log(name);
+                    console.log(description);
+                    console.log(price);
+
+                    console.log(quantity);
+
+                    console.log(seller_id);
+
+                   console.log(result);
+                   console.log(result);
+
+                   queryStatement2="select user_id , company_name from sellers where id="+seller_id+"";
+                   dbConnection.query(queryStatement2,function(err,result2){
+                       if(err){
+                           console.log(err);
+                           res.status(400).send(err);
+                       }
+                       else if(result2.length>0){
+                           var user_id=result2[0].user_id;
+                           var company_name=result2[0].company_name;
+
+                           queryStatement3="select name from users where id="+user_id+"";
+                           dbConnection.query(queryStatement3,function(err,result3){
+                            if(err){
+                                console.log(err);
+                                res.status(400).send(err);
+                            }
+                            else if(result3.length>0){
+                                var user_name=result3[0].name;
+
+                                console.log(user_name,company_name,product_id,name,description,quantity,price);
+                      //  res.status(200).send(user_name,company_name,product_id,name,description,quantity,price);
+                                res.status(200).json({ user_name,company_name,id,name,description,quantity,price});
+                            }
+                           });
+                       }
+
+                   });
+                
+                   // res.status(200).send(result);
                 }
-            }
+                
+            
             
             console.log("exiting from getOneProduct");
         });
@@ -431,8 +479,7 @@ exports.addFav= function(req,res){
         dbConnection.query(queryStatement,function(err,result){
             console.log(result);
             //var id= result.[0].user_id;
-            var user_id=result[0].user_id;
-            console.log("user_id is "+ user_id);
+           
     
     		if(err) {
     			console.log("error: ",err);
@@ -444,7 +491,9 @@ exports.addFav= function(req,res){
             // }
             
                // console.log("success: ",result);
-               else if(user_id > 1){
+               else if(result.length > 0){
+                var user_id=result[0].user_id;
+                console.log("user_id is "+ user_id);
                     // res.status(204).send("no user found");
                     console.log("user_id found");
 
@@ -490,8 +539,7 @@ exports.removeFav= function(req,res){
     dbConnection.query(queryStatement,function(err,result){
         console.log(result);
         //var id= result.[0].user_id;
-        var user_id=result[0].user_id;
-        console.log("user_id is "+ user_id);
+      
 
         if(err) {
             console.log("error: ",err);
@@ -503,7 +551,9 @@ exports.removeFav= function(req,res){
         // }
         
            // console.log("success: ",result);
-           else if(user_id > 1){
+           else if(result.length > 0){
+            var user_id=result[0].user_id;
+            console.log("user_id is "+ user_id);
                 // res.status(204).send("no user found");
                 console.log("user_id found");
 
@@ -536,7 +586,8 @@ exports.removeFav= function(req,res){
 
                     console.log("entering into search");
                    // var search=req.body.search;
-                   var search= req.headers.search;
+                  // var search= req.headers.search;
+                  var search = req.params.search;
     
                     console.log("body: ",req.body);
                     dbConnection = db.getDbConnection();
@@ -591,50 +642,82 @@ exports.removeFav= function(req,res){
             console.log("user_id is "+ user_id);
                 // res.status(204).send("no user found");
                 console.log("user_id found");
-                queryStatement2="select id from sellers where user_id="+user_id+"";
+                queryStatement2="select product_id from favourites where user_id="+user_id+"";
                 dbConnection.query(queryStatement2,function(err,result2){
+                    console.log(result2);
                    
                     if(err){
                         console.log("error: ",err);
                         res.status(400).send(err);	
                     }
+                   
                     else if(result2.length>0){
-                        var seller_id=result2[0].id;
-                        console.log("seller_id is "+ seller_id);
-                        console.log("seller_id found");
-                        queryStatement3="select id, name, description, price, quantity from products where seller_id="+seller_id+"";
+                    //     var i=0;
+                    //     var count=result2.length;
+                    //     var n=result2.length;
+                    //     console.log(result2.length);
+                    //      while(i<count){
+                        
+                        
+                       // console.log("result length is "+result2.length);
+                       // var product_id=result2[i].product_id;
+                    //    var product_id2=result2[1].product_id;
+                       // console.log("product_id is "+ product_id);
+                      //  console.log("seller_id found");
+                     
+                       
+                        queryStatement3="select id, name, description, price, quantity from products where id IN ("+result2[0].product_id+","+result2[1].product_id+")";
+                        console.log(queryStatement3);
+                      
+                       
                         dbConnection.query(queryStatement3, function(err,result3){
-
                             if(err){
                                 console.log("error: ",err);
                                 res.status(400).send(err);	
                             }
-                            else if(result3.length>0){
-                                console.log(result3);
-                                res.status(200).send(result3);
+                            else if(result3.length){
+                        //         var finalResult='';
+                        //         console.log(finalResult);
+                        //         console.log(result3);
+                        //   var finalResult=finalResult + result3;
+                        //var finalResult=finalResult+result3;
+                        
+                
+                
+                            
+                           console.log(result3);
+                         
+                           res.status(200).send(result3);
                             }
                             else{
                                 console.log("no data found");
-                                res.status(204).send("no data found");
+                              //  res.status(204).send("no data found");
                             }
+                        
                         });
+                        //    
+                         
+                    //     // }
+                    //     i=i+1;
 
-
-                    }
-                    else{
-                        console.log("seller_id not found");
-                        res.status(204).send("seller_id not found");
-                    }
-                });
-
-
+                    // }
                 }
+                 
                 else{
-                    console.log("user_id not found");
+                    console.log("product_id not found");
                    res.status(204).send("user_id not found");	
                 }
             });
+        
         }
+        else{
+            console.log("user_id not found");
+           res.status(204).send("user_id not found");	
+        }
+    
+    });
+
+}
 
             
                 

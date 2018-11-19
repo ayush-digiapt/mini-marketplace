@@ -2,6 +2,7 @@ var express = require('express');
 var db = require('../db/db');
 var router = express.Router();
 var randomToken = require('random-token');
+var passwordHash = require('password-hash');
 
 exports.login= function(req,res){
     console.log("request body: ", req.body);
@@ -25,10 +26,41 @@ exports.login= function(req,res){
 		// else {
         //    // console.log("success: ",result);
             else if(result.length>0){
+
+            //    var password=req.body.password;
+            //     var hashedPassword = passwordHash.generate(password);
+            //     console.log(hashedPassword);
+
+             //   var passwordHash = require('./lib/password-hash');
+
+             //   var hashedPassword = '    var passwordHash = require('./lib/password-hash');
+
+                queryStatement4="select password from users where email='"+req.body.email+"'";
+                connection.query(queryStatement4,function(err,result4){
+                    if(err){
+                        console.log(err);
+                        res.status(400).send(err);
+                    }
+                    else if(result4.length>0)
+                    {
+
+                    var hashedPassword=result4[0].password;
+                    var password=req.body.password;
+                    
                 
+               // var hashedPassword = 'sha1$adc396c1$1$b9b48ac15357b11d51ac47f5814a3bcd6b9b44a4';
                 
+               // console.log(passwordHash.verify('password123', hashedPassword)); // true
+               // console.log(passwordHash.verify('Password0', hashedPassword)); // false';
                 
-                var queryStatement2 = "select id, role_id from users where email='"+req.body.email+"' and password='"+req.body.password+"'";
+                console.log(passwordHash.verify(password, hashedPassword)); // true
+               // console.log(passwordHash.verify('12349qwert', hashedPassword)); // false
+              var valid = passwordHash.verify(password, hashedPassword);
+                //verify(password, hashedPassword)
+                
+            
+                if(valid){
+                var queryStatement2 = "select id, role_id from users where email='"+req.body.email+"' and password='"+hashedPassword+"'";
                 connection.query(queryStatement2,function(err,result2){
                    
                    
@@ -43,8 +75,9 @@ exports.login= function(req,res){
                     } 
                     // else {
                     //    // console.log("success: ",result);
+                
                        else if(result2.length>0){
-                            console.log(id);
+                          //  console.log(id);
                             console.log(result2);
                        var id=result2[0].id;
                        var role_id=role_id;
@@ -52,6 +85,16 @@ exports.login= function(req,res){
                        console.log("role_id is "+role_id);
                       console.log("user_id is "+id);
                       console.log(result2);
+
+                    //   queryStatement5="delete from sessions where user_id="+id+"";
+                    //   connection.query(queryStatement5,function(err,result5){
+                    //       if(err){
+                    //           console.log(err);
+                    //           res.status(400).send(err);
+                    //       }
+                    //       else if(result5.affectedRows>0){
+
+                         
 
                       
                             // res.status(200).send(" successfully login ");
@@ -63,14 +106,14 @@ exports.login= function(req,res){
 
 
                            
-                            var currentDate = new Date();
-                            var year = currentDate.getFullYear();
-                            var month = currentDate.getMonth();
-                            var day = currentDate.getDate();
-                            var nextDate = new Date(year, month, day+10)
+                            // var currentDate = new Date();
+                            // var year = currentDate.getFullYear();
+                            // var month = currentDate.getMonth();
+                            // var day = currentDate.getDate();
+                            // var nextDate = new Date(year, month, day+10)
                            
                             
-                            var token_expires = nextDate;
+                            // var token_expires = nextDate;
                          
                             
                             
@@ -89,7 +132,8 @@ exports.login= function(req,res){
                                //Sat Nov 24 2018 00:00:00 GMT+0530 (IST)
 
                             //    var currentNow = new now();
-                            //    currentNow= currentNow+ 24;                            
+                            //    currentNow= currentNow+ 24;  
+                                                 
                             
                             var queryStatement3="insert into sessions(user_id,token,token_expiry,created) values("+id+",'"+token+"',now()+10000,now())";
                           // var queryStatement3="insert into sessions(user_id,token,token_expiry,created) values("+id+",'"+token+"',"+token_expires+",now())";
@@ -138,7 +182,10 @@ exports.login= function(req,res){
                                 
                                
                         });
+                //     }
 
+                // });
+                    
 
                           
                             
@@ -147,10 +194,16 @@ exports.login= function(req,res){
                             console.log("password is wrong");
                         
                         }
-                // res.status(200).send(" successfully login result");
-                // console.log("hii login successfull");
-                    //}
+                
         });
+    }
+    else {
+        res.status(401).send("password is wrong");
+        console.log("password is wrong");
+    }
+}
+});
+    
         }else {
                 res.status(401).send("Email id is not valid");
                 console.log("Email id is not valid");

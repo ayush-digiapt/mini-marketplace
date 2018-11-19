@@ -137,7 +137,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:3000/products/:id",
+			"name": "localhost:3000/products/details/:id",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -182,24 +182,15 @@
 			"response": []
 		},
 		{
-			"name": "localhost:3000/products/search",
+			"name": "localhost:3000/products/search/:search",
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					},
-					{
-						"key": "search",
-						"value": "mi phone"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "raw",
 					"raw": ""
 				},
-				"url": "localhost:3000/products/search",
+				"url": "localhost:3000/products/search/mi charger",
 				"description": "search product"
 			},
 			"response": []
@@ -267,6 +258,26 @@
 				"body": {},
 				"url": "localhost:3000/auth/logout",
 				"description": "logout API"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/users",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "token",
+						"value": "5p8mdtjtym6z"
+					}
+				],
+				"body": {},
+				"url": "localhost:3000/users",
+				"description": "get users name API"
 			},
 			"response": []
 		}
