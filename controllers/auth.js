@@ -157,7 +157,7 @@ exports.login= function(req,res){
                                 //var token={token}
                                //res.status(200).send(token_variable);
                                console.log(token_variable,role);
-                               res.status(200).json({ token_variable , role});
+                               res.status(200).json({ token , role_id});
                                     
                                  //  res.res.sendStatus(role_id);
                                    //res.res.sendStatus(token);
