@@ -71,65 +71,65 @@ exports.createUser= function(req,res){
       
     
     if (!validateEmail(email)) { console.log('Invalid email address');
-    res.status(204).send("invalid email address");
+    res.status(204).json("invalid email address");
     }
     else if(name.length<3 || name.length>32)
     {
         console.log("invalid name");
-        res.status(204).send("invalid name");
+        res.status(204).json("invalid name");
     
     }
     // else if(last_name.length!=0 && (last_name.length<3 || last_name.length>32))
       
     //         {
     //         console.log("invalid last_name");
-    //         res.status(204).send("invalid last_name");
+    //         res.status(204).json("invalid last_name");
     //          }
     
      else if(password.length<8 || password.length>32)
       
              {
              console.log("invalid password");
-             res.status(204).send("invalid password");
+             res.status(204).json("invalid password");
               }
     
     else if(address_line1.length!=0 && (address_line2.length<8 || address_line1.length>100))
       
             {
             console.log("invalid address_line1");
-            res.status(204).send("invalid address_line1");
+            res.status(204).json("invalid address_line1");
              }
 
   else if(address_line2.length!=0 && (address_line2.length<8 || address_line2.length>100))
       
             {
                  console.log("invalid address_line2");
-                 res.status(204).send("invalid address_line2");
+                 res.status(204).json("invalid address_line2");
              }
  else if(city.length<3 || city.length>32)
       
              {
              console.log("invalid city");
-             res.status(204).send("invalid city");
+             res.status(204).json("invalid city");
               }
       
 else if(state.length<3 || state.length>32)
       
               {
               console.log("invalid state");
-              res.status(204).send("invalid state");
+              res.status(204).json("invalid state");
                }          
     // else if(mobile!=null )
       
     //         {
     //         console.log("invalid mobile");
-    //         res.status(204).send("invalid mobile");
+    //         res.status(204).json("invalid mobile");
     //          }
         
     else if(mobile!=null && mobile<6000000000  || mobile> 10000000000 )
     {
         console.log("mobile number is not valid")
-        res.status(204).send("mobile number is not valid");
+        res.status(204).json("mobile number is not valid");
     }
     
     else{
@@ -144,7 +144,7 @@ else if(state.length<3 || state.length>32)
         dbConnection.query(queryStatement,function(err,result){
             if(err) {
                 console.log("error: ",err);
-                res.status(400).send(err);	
+                res.status(400).json(err);	
                     
             } 
             else {
@@ -160,7 +160,7 @@ else if(state.length<3 || state.length>32)
                            
                     //    {
                     //    console.log("invalid company name");
-                    //    res.status(204).send("invalid comapny name");
+                    //    res.status(204).json("invalid comapny name");
                     //    }          
                        queryStatement2= "select id from users where email='"+email+"'";
                        dbConnection.query(queryStatement2,function(err,result2){
@@ -173,7 +173,7 @@ else if(state.length<3 || state.length>32)
                             //console.log(result2);
                            if(err){
                                console.log("error: ",err);
-                               res.status(400).send(err);	
+                               res.status(400).json(err);	
                            }
    
                            else if(result2.length>0)
@@ -183,13 +183,13 @@ else if(state.length<3 || state.length>32)
                                dbConnection.query(queryStatement3,function(err,result3){
                                    if(err){
                                        console.log("error: ",err);
-                                       res.status(400).send(err);
+                                       res.status(400).json(err);
                                    }
                                    else if(result3.affectedRows>0)
                                    {
    
                                        console.log("seller created");
-                                      res.status(201).send("user has been created successfully");	
+                                      res.status(201).json("user has been created successfully");	
                                    }
                                });
                            }
@@ -197,12 +197,12 @@ else if(state.length<3 || state.length>32)
                    }
                    else{
                        console.log("user has been created successfully");
-                    res.status(201).send("user has been created successfully");
+                    res.status(201).json("user has been created successfully");
                    }
    
 
                      console.log("successfull createUsers");
-                   // res.status(201).send("user has been created successfully");		
+                   // res.status(201).json("user has been created successfully");		
                 }
             }
             console.log("exiting from createUsers");
@@ -224,7 +224,7 @@ else if(state.length<3 || state.length>32)
         dbConnection.query(queryStatement,function(err,result){
             if(err){
                 console.log(err);
-                res.status(400).send(err);
+                res.status(400).json(err);
             }
             else if(result.length>0){
                 var user_id=result[0].user_id;
@@ -233,17 +233,18 @@ else if(state.length<3 || state.length>32)
 
                 queryStatement2="select name from users where id="+user_id+"";
                 dbConnection.query(queryStatement2,function(err,result2){
+                    //if
                     if(err){
                       console.log(err);
-                      res.status(400).send(err);
+                      res.status(400).json(err);
                     }
                     else if(result2.length>0){
                         console.log(result2);
-                        res.status(200).send(result2);
+                        res.status(200).json(result2);
                     }
                     else{
                         console.log("no data found");
-                        res.status(204).send("no data found");
+                        res.status(204).json("no data found");
 
                     }
                 });
@@ -252,7 +253,7 @@ else if(state.length<3 || state.length>32)
             }
             else{
                 console.log("user_id not found");
-                res.status(204).send("user_id not found");
+                res.status(204).json("user_id not found");
             }
         });
 
