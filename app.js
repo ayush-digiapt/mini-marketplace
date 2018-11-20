@@ -42,7 +42,7 @@ app.use(function(req, res, next) {
 //   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
 //   res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, Authorization, Accept,Content-Length, X-Requested-With, X-PINGOTHER');
 //  if ('OPTIONS' === req.method) {
-//       res.sendStatus(200);
+//       res.jsonStatus(200);
 //   } else {
 //       next();
 //   }
