@@ -202,7 +202,7 @@ else if(state.length<3 || state.length>32)
    
 
                      console.log("successfull createUsers");
-                   // res.status(201).json("user has been created successfully");		
+                   // res.status(201).send("user has been created successfully");		
                 }
             }
             console.log("exiting from createUsers");

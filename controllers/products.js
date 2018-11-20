@@ -19,15 +19,15 @@ exports.getAllProducts= function(req,res){
     dbConnection.query(queryStatement,function(err,result){
 		if(err) {
 			console.log("error: ",err);
-            res.status(400).send(err);	
+            res.status(400).json(err);	
         }	
 		
         else{
             console.log("success: ",result);
             if(result.length === 0){
-                res.status(204).send("no user found");
+                res.status(204).json("no user found");
             } else {
-                res.status(200).send(result);
+                res.status(200).json(result);
             }
         }
        
@@ -50,7 +50,7 @@ exports.getSellerProducts= function(req,res){
     dbConnection.query(queryStatement,function(err,result){
 		if(err) {
 			console.log("error: ",err);
-            res.status(400).send(err);	
+            res.status(400).json(err);	
         }	
         else if(result.length>0){
             console.log(result);
@@ -63,7 +63,7 @@ exports.getSellerProducts= function(req,res){
 
                 if(err){
                     console.log(err);
-                    res.status(400).send(err);
+                    res.status(400).json(err);
                 }
                 else if(result2.length>0){
                     console.log(result2);
@@ -75,22 +75,22 @@ exports.getSellerProducts= function(req,res){
                     dbConnection.query(queryStatement3, function(err,result3){
                         if(err){
                             console.log(err);
-                            res.status(400).send(err);
+                            res.status(400).json(err);
                         }
                         else if(result3.length>0){
                             console.log(result3);
-                            res.status(200).send(result3);
+                            res.status(200).json(result3);
                         }
                         else{
                             console.log("no data found");
-                            res.status(204).send("no data found")
+                            res.status(204).json("no data found")
                         }
 
                     });
                 }
                 else{
                     console.log("seller_id not found");
-                    res.status(204).send("seller_id not found");
+                    res.status(204).json("seller_id not found");
 
                 }
               
@@ -99,7 +99,7 @@ exports.getSellerProducts= function(req,res){
         }
         else{
             console.log("user_id not found");
-            res.status(204).send("user_id not found");
+            res.status(204).json("user_id not found");
         }
 		
        
@@ -128,25 +128,25 @@ exports.addProduct= function(req,res){
      if(name.length<3 || name.length>32)
     {
         console.log("invalid name");
-        res.status(204).send("invalid name");
+        res.status(204).json("invalid name");
     
     }
     else if(description.length<8 || description.length>32)
     {
         console.log("invalid description");
-        res.status(204).send("invalid description");
+        res.status(204).json("invalid description");
     
     }
     else if(price<1 )
     {
         console.log("invalid price");
-        res.status(204).send("invalid price");
+        res.status(204).json("invalid price");
     
     }
     else if(quantity<1 )
     {
         console.log("invalid quantity");
-        res.status(204).send("invalid quantity");
+        res.status(204).json("invalid quantity");
     
     }
    
@@ -164,7 +164,7 @@ exports.addProduct= function(req,res){
        
 		if(err) {
 			console.log("error: ",err);
-            res.status(400).send(err);	
+            res.status(400).json(err);	
         }	
 		//  else  {
         //     console.log("success: ",result);
@@ -173,7 +173,7 @@ exports.addProduct= function(req,res){
         else{
            // console.log("success: ",result);
             if(result.length === 1){
-                // res.status(204).send("no user found");
+                // res.status(204).json("no user found");
                 var user_id=result[0].user_id;
                 console.log("user_id is "+ user_id);
         
@@ -185,7 +185,7 @@ exports.addProduct= function(req,res){
                     if(err)
                     {
                         console.log(err);
-                        res.status(400).send(err);
+                        res.status(400).json(err);
                     }
                     else if(result2.length>0)
                     {
@@ -200,29 +200,29 @@ exports.addProduct= function(req,res){
                             if(err)
                             {
                                 console.log(err);
-                                res.status(400).send(err);
+                                res.status(400).json(err);
                             } 
                             else if(result3.affectedRows === 1)
                             {
                                 console.log("product added");
-                                res.status(201).send("product added");
+                                res.status(201).json("product added");
                             }
                             else
                             {
                                 console.log("product not added");
-                                res.status(204).send("product not added");
+                                res.status(204).json("product not added");
                             }
 
                         });
                     }
                     else{
                         console.log("seller not found")
-                        res.status(204).send("seller not found");
+                        res.status(204).json("seller not found");
                     }
                 });
 
             } else {
-                res.status(204).send("user not found");
+                res.status(204).json("user not found");
                 console.log("user not found");
             }
         }
@@ -249,25 +249,25 @@ exports.addProduct= function(req,res){
      if(name.length<3 || name.length>32)
     {
         console.log("invalid name");
-        res.status(204).send("invalid name");
+        res.status(204).json("invalid name");
     
     }
     else if(description.length<8 || description.length>32)
     {
         console.log("invalid description");
-        res.status(204).send("invalid description");
+        res.status(204).json("invalid description");
     
     }
     else if(price<1 )
     {
         console.log("invalid price");
-        res.status(204).send("invalid price");
+        res.status(204).json("invalid price");
     
     }
     else if(quantity<1 )
     {
         console.log("invalid quantity");
-        res.status(204).send("invalid quantity");
+        res.status(204).json("invalid quantity");
     
     }
    
@@ -287,16 +287,16 @@ exports.addProduct= function(req,res){
 
 		if(err) {
 			console.log("error: ",err);
-            res.status(400).send(err);	
+            res.status(400).json(err);	
         }	
 		//  else  {
         //     console.log("success: ",result);
-        //     res.status(200).send(result);
+        //     res.status(200).json(result);
         // }
         else{
            // console.log("success: ",result);
             if(result.length>0){
-                // res.status(204).send("no user found");
+                // res.status(204).json("no user found");
                 var user_id=result[0].user_id;
                  console.log("user_id is "+ user_id);
                 console.log("user_id found");
@@ -309,7 +309,7 @@ exports.addProduct= function(req,res){
                     if(err)
                     {
                         console.log(err);
-                        res.status(400).send(err);
+                        res.status(400).json(err);
                     }
                     else if(result2.length>0)
                     {
@@ -323,29 +323,29 @@ exports.addProduct= function(req,res){
                             if(err)
                             {
                                 console.log(err);
-                                res.status(400).send(err);
+                                res.status(400).json(err);
                             } 
                             else if(result3.affectedRows === 1)
                             {
                                 console.log("product edited");
-                                res.status(200).send("product edited");
+                                res.status(200).json("product edited");
                             }
                             else
                             {
                                 console.log("product not edited");
-                                res.status(204).send("product not edited");
+                                res.status(204).json("product not edited");
                             }
 
                         });
                     }
                     else{
                         console.log("seller not found")
-                        res.status(204).send("seller not found");
+                        res.status(204).json("seller not found");
                     }
                 });
 
             } else {
-                res.status(204).send("user not found");
+                res.status(204).json("user not found");
             }
         }
        
@@ -372,7 +372,7 @@ exports.getOneProduct=function(req,res){
         dbConnection.query(queryStatement,function(err,result){
             if(err) {
                 console.log("error: ",err);
-                res.status(400).send(err);		
+                res.status(400).json(err);		
             } 
         
               //  console.log("success: ",result);
@@ -399,7 +399,7 @@ exports.getOneProduct=function(req,res){
                    dbConnection.query(queryStatement2,function(err,result2){
                        if(err){
                            console.log(err);
-                           res.status(400).send(err);
+                           res.status(400).json(err);
                        }
                        else if(result2.length>0){
                            var user_id=result2[0].user_id;
@@ -409,14 +409,14 @@ exports.getOneProduct=function(req,res){
                            dbConnection.query(queryStatement3,function(err,result3){
                             if(err){
                                 console.log(err);
-                                res.status(400).send(err);
+                                res.status(400).json(err);
                             }
                             else if(result3.length>0){
                                 var seller_name=result3[0].name;
                              //   var role_id=result3[0].role_id;
                               
                                 console.log(seller_name,company_name,product_id,name,description,quantity,price);
-                      //  res.status(200).send(user_name,company_name,product_id,name,description,quantity,price);
+                      //  res.status(200).json(user_name,company_name,product_id,name,description,quantity,price);
                                 res.status(200).json({ seller_name,company_name,id,name,description,quantity,price});
                             
                             
@@ -426,7 +426,7 @@ exports.getOneProduct=function(req,res){
 
                    });
                 
-                   // res.status(200).send(result);
+                   // res.status(200).json(result);
                 }
                 else{
                     console.log("product_id is not found");
@@ -452,7 +452,7 @@ dbConnection.query(queryStatement,function(err,result){
 
     if(err){
         console.log(err);
-        res.status(400).send(err);
+        res.status(400).json(err);
 
         }
         else if(result.affectedRows===1){
@@ -461,7 +461,7 @@ dbConnection.query(queryStatement,function(err,result){
         }
         else{
             console.log("product is not found")
-            res.status(204).send("product is not found");
+            res.status(204).json("product is not found");
         }
 
 });
@@ -488,18 +488,18 @@ exports.addFav= function(req,res){
     
     		if(err) {
     			console.log("error: ",err);
-                res.status(400).send(err);	
+                res.status(400).json(err);	
             }	
     		//  else  {
             //     console.log("success: ",result);
-            //     res.status(200).send(result);
+            //     res.status(200).json(result);
             // }
             
                // console.log("success: ",result);
                else if(result.length > 0){
                 var user_id=result[0].user_id;
                 console.log("user_id is "+ user_id);
-                    // res.status(204).send("no user found");
+                    // res.status(204).json("no user found");
                     console.log("user_id found");
 
                     queryStatement2="insert into favourites(user_id, product_id, created) values("+user_id+","+id+",now())";
@@ -507,21 +507,21 @@ exports.addFav= function(req,res){
                             ){
                             if(err){
                                 console.log(err);
-                                res.status(400).send(err);
+                                res.status(400).json(err);
                             }
                             else if(result2.affectedRows===1){
                                 console.log("added fav");
-                                res.status(201).send("added fav");
+                                res.status(201).json("added fav");
                             }
                             else{
                                 console.log("product not added as fav");
-                                res.status(204).send("product not added as fav");
+                                res.status(204).json("product not added as fav");
                             }
                         });
                     }
                         else{
                             console.log("user_id not found");
-                            res.status(204).send("user_id not found");
+                            res.status(204).json("user_id not found");
                         }
                         });
                     }
@@ -548,18 +548,18 @@ exports.removeFav= function(req,res){
 
         if(err) {
             console.log("error: ",err);
-            res.status(400).send(err);	
+            res.status(400).json(err);	
         }	
         //  else  {
         //     console.log("success: ",result);
-        //     res.status(200).send(result);
+        //     res.status(200).json(result);
         // }
         
            // console.log("success: ",result);
            else if(result.length > 0){
             var user_id=result[0].user_id;
             console.log("user_id is "+ user_id);
-                // res.status(204).send("no user found");
+                // res.status(204).json("no user found");
                 console.log("user_id found");
 
                 queryStatement2="delete from favourites where product_id="+id+" and user_id="+user_id+"";
@@ -567,21 +567,21 @@ exports.removeFav= function(req,res){
                         ){
                         if(err){
                             console.log(err);
-                            res.status(400).send(err);
+                            res.status(400).json(err);
                         }
                         else if(result2.affectedRows===1){
                             console.log("removed fav");
-                            res.status(200).send("removed fav");
+                            res.status(200).json("removed fav");
                         }
                         else{
                             console.log("product not removed as fav");
-                            res.status(204).send("product not removed as fav");
+                            res.status(204).json("product not removed as fav");
                         }
                     });
                 }
                     else{
                         console.log("user_id not found");
-                        res.status(204).send("user_id not found");
+                        res.status(204).json("user_id not found");
                     }
                     }); 
                 }
@@ -600,15 +600,15 @@ exports.removeFav= function(req,res){
                     dbConnection.query(queryStatement,function(err,result){
                         if(err){
                             console.log(err);
-                            res.status(400).send(err);
+                            res.status(400).json(err);
                         }
                         else if(result.length>0){
                             console.log(result);
-                            res.status(200).send(result);
+                            res.status(200).json(result);
                         }
                         else{
                             console.log("no data by search");
-                            res.status(200).send("no data is found by search");
+                            res.status(200).json("no data is found by search");
                         }
 
                     });
@@ -636,7 +636,7 @@ exports.removeFav= function(req,res){
 
         if(err) {
             console.log("error: ",err);
-            res.status(400).send(err);	
+            res.status(400).json(err);	
         }	
        
         
@@ -645,7 +645,7 @@ exports.removeFav= function(req,res){
         //     //var id= result.[0].user_id;
         //     var user_id=result[0].user_id;
         //     console.log("user_id is "+ user_id);
-        //         // res.status(204).send("no user found");
+        //         // res.status(204).json("no user found");
         //         console.log("user_id found");
         //         queryStatement2="select product_id from favourites where user_id="+user_id+"";
         //         dbConnection.query(queryStatement2,function(err,result2){
@@ -653,7 +653,7 @@ exports.removeFav= function(req,res){
                    
         //             if(err){
         //                 console.log("error: ",err);
-        //                 res.status(400).send(err);	
+        //                 res.status(400).json(err);	
         //             }
                    
                     else if(result.length>0){
@@ -684,17 +684,17 @@ exports.removeFav= function(req,res){
                             console.log(result2);
                             if(err){
                                 console.log("error: ",err);
-                                res.status(400).send(err);	
+                                res.status(400).json(err);	
                             }
                             else if(result2.length){
                      
                            console.log(result2);
                          
-                           res.status(200).send(result2);
+                           res.status(200).json(result2);
                             }
                             else{
                                 console.log("no data found");
-                              res.status(204).send("no data found");
+                              res.status(204).json("no data found");
                             }
                         
                         
@@ -703,7 +703,7 @@ exports.removeFav= function(req,res){
       
         else{
             console.log("user_id not found");
-           res.status(204).send("user_id not found");	
+           res.status(204).json("user_id not found");	
         }
     
     });

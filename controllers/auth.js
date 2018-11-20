@@ -9,7 +9,7 @@ exports.login= function(req,res){
    // var token = randomToken(12);
 
     // console.log(token);
-    // res.status(200).send(token);
+    // res.status(200).json(token);
 
     console.log("in login");
     console.log("body: ",req.body);
@@ -20,7 +20,7 @@ exports.login= function(req,res){
        
 		if(err) {
 			console.log("error: ",err);
-            res.status(400).send(err);
+            res.status(400).json(err);
            
         } 		
 		// else {
@@ -39,7 +39,7 @@ exports.login= function(req,res){
                 connection.query(queryStatement4,function(err,result4){
                     if(err){
                         console.log(err);
-                        res.status(400).send(err);
+                        res.status(400).json(err);
                     }
                     else if(result4.length>0)
                     {
@@ -68,7 +68,7 @@ exports.login= function(req,res){
                 
                     if(err) {
                         console.log("error: ",err);
-                        res.status(400).send(err);
+                        res.status(400).json(err);
                        
                        
                                 
@@ -90,14 +90,14 @@ exports.login= function(req,res){
                     //   connection.query(queryStatement5,function(err,result5){
                     //       if(err){
                     //           console.log(err);
-                    //           res.status(400).send(err);
+                    //           res.status(400).json(err);
                     //       }
                     //       else if(result5.affectedRows>0){
 
                          
 
                       
-                            // res.status(200).send(" successfully login ");
+                            // res.status(200).json(" successfully login ");
                             // console.log("hii login successfull");
 
                             
@@ -139,41 +139,41 @@ exports.login= function(req,res){
                           // var queryStatement3="insert into sessions(user_id,token,token_expiry,created) values("+id+",'"+token+"',"+token_expires+",now())";
                             connection.query(queryStatement3,function(err,result3){
 
-
+                                
                                if (err) {
                                     console.log(err);
-                                    res.status(400).send(err);
+                                    res.status(400).json(err);
                                 } 
                                 else if(result3.affectedRows === 1){ 
                                     console.log('inserted');
-                                    //res.status(200).send("Email is send ");
+                                    //res.status(200).json("Email is json ");
                                  //   console.log(role_id);
                                 //  console.log("successfull login");
-                                //  res.status(200).send("successfull login");
+                                //  res.status(200).json("successfull login");
                                 var token_variable={token};
                                 // console.log(token_variable);
-                                // res.status(200).send(token_variable);
+                                // res.status(200).json(token_variable);
                                 var role= {role_id};
                                 //var token={token}
-                               //res.status(200).send(token_variable);
+                               //res.status(200).json(token_variable);
                                console.log(token_variable,role);
                                res.status(200).json({ token , role_id});
                                     
-                                 //  res.res.sendStatus(role_id);
-                                   //res.res.sendStatus(token);
+                                 //  res.res.jsonStatus(role_id);
+                                   //res.res.jsonStatus(token);
                                // result=role_id;
                             //    if(role_id===1){
-                            //         res.status(200).send("1");
+                            //         res.status(200).json("1");
                             //         console.log("1");
                             //    }
                             //    else{
-                            //     res.status(200).send("2");
+                            //     res.status(200).json("2");
                             //     console.log("1");
 
                             //    }
                                     // if(res.status===200)
                                     // {
-                                    //     res.send(role_id);
+                                    //     res.json(role_id);
                                     //     console.log(role_id);
                                     //     console("rinjit1234");
                                     // }
@@ -190,7 +190,7 @@ exports.login= function(req,res){
                           
                             
                         } else {
-                            res.status(401).send("password is wrong");
+                            res.status(401).json("password is wrong");
                             console.log("password is wrong");
                         
                         }
@@ -198,14 +198,14 @@ exports.login= function(req,res){
         });
     }
     else {
-        res.status(401).send("password is wrong");
+        res.status(401).json("password is wrong");
         console.log("password is wrong");
     }
 }
 });
     
         }else {
-                res.status(401).send("Email id is not valid");
+                res.status(401).json("Email id is not valid");
                 console.log("Email id is not valid");
             }
 			
@@ -224,16 +224,16 @@ exports.logout = function(req,res){
     {
         if(err){
             console.log(err);
-            res.status(400).send(err);
+            res.status(400).json(err);
         }
         else if( result.affectedRows>0){
 
             console.log("logout successfully");
-            res.status(200).send("logout successfully");
+            res.status(200).json("logout successfully");
         }
         else{
             console.log("no login");
-            res.status(204).send("not login");
+            res.status(204).json("not login");
         }
     });
 
