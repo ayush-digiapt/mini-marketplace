@@ -414,10 +414,11 @@ exports.getOneProduct=function(req,res){
                             else if(result3.length>0){
                                 var seller_name=result3[0].name;
                              //   var role_id=result3[0].role_id;
-                              
-                                console.log(seller_name,company_name,product_id,name,description,quantity,price);
-                      //  res.status(200).json(user_name,company_name,product_id,name,description,quantity,price);
-                                res.status(200).json({ seller_name,company_name,id,name,description,quantity,price});
+                            // var result4= "seller_name is "+seller_name + "company_name is "+company_name +"id is +"+id +" name is "+name + "description is "+description + "quantity is "+quantity+ "price is "+price;
+                          //  var result4= {seller_name,company_name,id,name,description,quantity,price};
+                                console.log([{seller_name,company_name,id,name,description,quantity,price}]);
+                                res.status(200).json([{seller_name,company_name,id,name,description,quantity,price}]);
+                             //   res.status(200).json({ result4});
                             
                             
                         }
@@ -429,8 +430,8 @@ exports.getOneProduct=function(req,res){
                    // res.status(200).json(result);
                 }
                 else{
-                    console.log("product_id is not found");
-                    res.status(204).json("product_id is not found");
+                    console.log("data is not found");
+                    res.status(204).json("data is not found");
                 }
                 
             
@@ -569,7 +570,7 @@ exports.removeFav= function(req,res){
                             console.log(err);
                             res.status(400).json(err);
                         }
-                        else if(result2.affectedRows===1){
+                        else if(result2.affectedRows>0){
                             console.log("removed fav");
                             res.status(200).json("removed fav");
                         }
@@ -681,12 +682,12 @@ exports.removeFav= function(req,res){
                       
                        
                         dbConnection.query(queryStatement3, function(err,result2){
-                            console.log(result2);
+                          //  console.log(result2);
                             if(err){
                                 console.log("error: ",err);
                                 res.status(400).json(err);	
                             }
-                            else if(result2.length){
+                            else if(result2.length>0){
                      
                            console.log(result2);
                          

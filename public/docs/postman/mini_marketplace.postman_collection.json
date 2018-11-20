@@ -71,7 +71,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:3000/products/sellerProducts",
+			"name": "localhost:3000/products/myProducts",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -114,7 +114,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:3000/products/edit",
+			"name": "localhost:3000/products/edit/:id",
 			"request": {
 				"method": "PUT",
 				"header": [

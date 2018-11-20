@@ -60,7 +60,7 @@ exports.login= function(req,res){
                 
             
                 if(valid){
-                var queryStatement2 = "select id, role_id from users where email='"+req.body.email+"' and password='"+hashedPassword+"'";
+                var queryStatement2 = "select id, name, role_id from users where email='"+req.body.email+"' and password='"+hashedPassword+"'";
                 connection.query(queryStatement2,function(err,result2){
                    
                    
@@ -81,7 +81,10 @@ exports.login= function(req,res){
                             console.log(result2);
                        var id=result2[0].id;
                        var role_id=role_id;
+                       var name=result2[0].name;
+                       var role_id=role_id;
                        var role_id=result2[0].role_id;
+                       console.log("name is "+name);
                        console.log("role_id is "+role_id);
                       console.log("user_id is "+id);
                       console.log(result2);
@@ -149,15 +152,15 @@ exports.login= function(req,res){
                                     //res.status(200).json("Email is json ");
                                  //   console.log(role_id);
                                 //  console.log("successfull login");
-                                //  res.status(200).json("successfull login");
+                                //  res.status(200).send("successfull login");
                                 var token_variable={token};
                                 // console.log(token_variable);
                                 // res.status(200).json(token_variable);
                                 var role= {role_id};
                                 //var token={token}
                                //res.status(200).json(token_variable);
-                               console.log(token_variable,role);
-                               res.status(200).json({ token , role_id});
+                               console.log(token,role_id,name);
+                               res.status(200).json({ token , role_id, name});
                                     
                                  //  res.res.jsonStatus(role_id);
                                    //res.res.jsonStatus(token);

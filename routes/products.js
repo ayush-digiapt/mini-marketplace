@@ -10,7 +10,7 @@ var productsController = require("../controllers/products")
 router.get('/', productsController.getAllProducts);
 
 /* get sellers products. */
-router.get('/sellerProducts', productsController.getSellerProducts);
+router.get('/myProducts', productsController.getSellerProducts);
 
 
 /* add fav. */
