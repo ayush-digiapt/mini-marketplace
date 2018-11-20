@@ -428,6 +428,10 @@ exports.getOneProduct=function(req,res){
                 
                    // res.status(200).send(result);
                 }
+                else{
+                    console.log("product_id is not found");
+                    res.status(204).json("product_id is not found");
+                }
                 
             
             
@@ -453,7 +457,7 @@ dbConnection.query(queryStatement,function(err,result){
         }
         else if(result.affectedRows===1){
             console.log("product is deleted ");
-            res.status(200).send("product is deleted");
+            res.status(200).json("product is deleted");
         }
         else{
             console.log("product is not found")
@@ -636,7 +640,6 @@ exports.removeFav= function(req,res){
         }	
        
         
-          
         //    else if(result.length > 0){
         //     console.log(result);
         //     //var id= result.[0].user_id;
@@ -672,7 +675,7 @@ exports.removeFav= function(req,res){
                      
                     //    if(n==1){
                        // queryStatement3="select id, name, description, price, quantity from products where id="+result2[0].product_id+"";
-                       queryStatement3="select id, name, description, price, quantity from products where id IN(select product_id from favourites where user_id="+user_id+")";
+                       queryStatement3="select id, name, description, price, quantity from products where id IN(select product_id from favourites where user_id="+user_id+") and is_archived=0";
 
                         console.log(queryStatement3);
                       
