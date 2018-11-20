@@ -65,6 +65,9 @@ exports.createUser= function(req,res){
         {
             pincode= null;
         }
+        if(company_name===undefined){
+        company_name='';
+        }
     
     
         
@@ -93,14 +96,14 @@ exports.createUser= function(req,res){
              res.status(204).json("invalid password");
               }
     
-    else if(address_line1.length!=0 && (address_line2.length<8 || address_line1.length>100))
+    else if(address_line1.length!=0 && (address_line2.length<5 || address_line1.length>100))
       
             {
             console.log("invalid address_line1");
             res.status(204).json("invalid address_line1");
              }
 
-  else if(address_line2.length!=0 && (address_line2.length<8 || address_line2.length>100))
+  else if(address_line2.length!=0 && (address_line2.length<5 || address_line2.length>100))
       
             {
                  console.log("invalid address_line2");
@@ -131,6 +134,12 @@ else if(state.length<3 || state.length>32)
         console.log("mobile number is not valid")
         res.status(204).json("mobile number is not valid");
     }
+    else if(role_id===1 && (company_name.length<3 || company_name.length>50)){ 
+        
+            console.log("Invalid company_name");
+            res.status(204).json("Invalid company_name");
+    }
+    
     
     else{
         var passwordHash = require('password-hash');
@@ -208,7 +217,8 @@ else if(state.length<3 || state.length>32)
             console.log("exiting from createUsers");
         });
     }
-    }
+}
+    
 
     exports.details=function(req,res){
        
