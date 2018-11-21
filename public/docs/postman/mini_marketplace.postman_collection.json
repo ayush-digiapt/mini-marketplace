@@ -17,7 +17,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\":\"ayush\",\n\t\"email\":\"ayush@gmail.com\",\n\t\"password\":\"12345678\",\n\t\"mobile\":8978675678,\n\t\"role_id\":1,\n\t\"address_line1\":\"bangalore\",\n\t\"address_line2\":\"indoreahkfajf\",\n\t\"city\":\"bangalore\",\n\t\"state\":\"karnakata\",\n\t\"pincode\":487987,\n\t\"company_name\":\"digiapt\"\n\t\n}"
+					"raw": "{\n\t\"name\":\"Ranka\",\n\t\"email\":\"ayu24720@gail.com\",\n\t\"password\":\"12345678\",\n\t\"mobile\":8978675678,\n\t\"role_id\":1,\n\t\"address_line1\":\"bangalore\",\n\t\"address_line2\":\"indoreahkfajf\",\n\t\"city\":\"bangalore\",\n\t\"state\":\"karnakata\",\n\t\"pincode\":989769,\n\t\"company_name\":\"ayush pvt\"\n\t\n}"
 				},
 				"url": "localhost:3000/users/reg",
 				"description": "create users"
@@ -85,7 +85,7 @@
 					}
 				],
 				"body": {},
-				"url": "localhost:3000/products/sellerProducts",
+				"url": "localhost:3000/products/myProducts",
 				"description": "get seller products"
 			},
 			"response": []
@@ -124,14 +124,14 @@
 					},
 					{
 						"key": "token",
-						"value": "pdj29tf5eaie"
+						"value": "u7r8fwec46dh"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\":\"phone\",\n\t\"description\":\"phone with charger\",\n\t\"price\":500,\n\t\"quantity\":35\n\t\n}"
+					"raw": "{\n\t\"name\":\"laptop\",\n\t\"description\":\"HP charger\",\n\t\"price\":50000,\n\t\"quantity\":1\n\t\n}"
 				},
-				"url": "localhost:3000/products/edit",
+				"url": "localhost:3000/products/edit/36",
 				"description": "edit product"
 			},
 			"response": []
@@ -153,7 +153,7 @@
 				"method": "DELETE",
 				"header": [],
 				"body": {},
-				"url": "localhost:3000/products/1",
+				"url": "localhost:3000/products/35",
 				"description": "delete product"
 			},
 			"response": []
@@ -278,6 +278,26 @@
 				"body": {},
 				"url": "localhost:3000/users",
 				"description": "get users name API"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/products/data",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "token",
+						"value": "ndkimrj56t27"
+					}
+				],
+				"body": {},
+				"url": "localhost:3000/products/data",
+				"description": "get non-fav products of users"
 			},
 			"response": []
 		}

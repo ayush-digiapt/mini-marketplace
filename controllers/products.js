@@ -72,7 +72,7 @@ exports.getSellerProducts= function(req,res){
                     console.log(seller_id);
                     console.log("seller_id is "+seller_id);
 
-                    queryStatement3="select id, name, description, price, quantity from products where seller_id="+seller_id+"";
+                    queryStatement3="select id, name, description, price, quantity from products where seller_id="+seller_id+" and is_archived=0";
                     dbConnection.query(queryStatement3, function(err,result3){
                         if(err){
                             console.log(err);
