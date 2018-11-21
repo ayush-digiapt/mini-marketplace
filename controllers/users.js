@@ -94,8 +94,7 @@ exports.createUser= function(req,res){
              {
              console.log("invalid password");
              res.status(204).json("invalid password");
-              }
-    
+             }
     else if(address_line1.length!=0 && (address_line2.length<5 || address_line1.length>100))
       
             {
@@ -109,32 +108,27 @@ exports.createUser= function(req,res){
                  console.log("invalid address_line2");
                  res.status(204).json("invalid address_line2");
              }
- else if(city.length<3 || city.length>32)
+ else if(city.length<5 || city.length>50)
       
              {
              console.log("invalid city");
              res.status(204).json("invalid city");
               }
       
-else if(state.length<3 || state.length>32)
+else if(state.length<5 || state.length>50)
       
               {
               console.log("invalid state");
               res.status(204).json("invalid state");
-               }          
-    // else if(mobile!=null )
-      
-    //         {
-    //         console.log("invalid mobile");
-    //         res.status(204).json("invalid mobile");
-    //          }
-        
+               } 
+     
+   
     else if(mobile!=null && mobile<6000000000  || mobile> 10000000000 )
     {
         console.log("mobile number is not valid")
         res.status(204).json("mobile number is not valid");
     }
-    else if(role_id===1 && (company_name.length<3 || company_name.length>50)){ 
+    else if(role_id===1 && (company_name.length<6 || company_name.length>60)){ 
         
             console.log("Invalid company_name");
             res.status(204).json("Invalid company_name");
@@ -143,9 +137,12 @@ else if(state.length<3 || state.length>32)
     
     else{
         var passwordHash = require('password-hash');
+        
+      
 
         var hashedPassword = passwordHash.generate(password);
         console.log(hashedPassword);
+       
         var queryStatement = "insert into users(name, email, password, mobile, role_id, address_line1, address_line2, city, state, pincode,is_archived, created, updated) values('"+name+"','"+email+"','"+hashedPassword+"',"+mobile+","+role_id+",'"+address_line1+"','"+address_line2+"','"+city+"','"+state+"',"+pincode+",0,now(),now())";
     
         console.log("query to be exectuted:: ",queryStatement);

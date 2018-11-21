@@ -9,6 +9,10 @@ var productsController = require("../controllers/products")
 /* get all products. */
 router.get('/', productsController.getAllProducts);
 
+
+/* get all products. */
+router.get('/data', productsController.getAllProductsDetails);
+
 /* get sellers products. */
 router.get('/myProducts', productsController.getSellerProducts);
 

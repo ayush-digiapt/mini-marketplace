@@ -12,7 +12,8 @@ exports.getAllProducts= function(req,res){
     
     dbConnection = db.getDbConnection();
     
-    var queryStatement = "select id, name , description, price, quantity from products where is_archived=0";
+   var queryStatement = "select id, name , description, price, quantity from products where is_archived=0";
+ // var queryStatement = "select id, name , description, price, quantity from products where id not IN(select product_id from favourites where user_id=100 ) and is_archived=0 ";
   
     console.log("query to be exectuted:: ",queryStatement);
 
@@ -125,13 +126,13 @@ exports.addProduct= function(req,res){
     console.log(name);
     console.log(description);console.log(price);console.log(quantity);
    
-     if(name.length<3 || name.length>32)
+     if(name.length<2 || name.length>32)
     {
         console.log("invalid name");
         res.status(204).json("invalid name");
     
     }
-    else if(description.length<8 || description.length>32)
+    else if(description.length<5 || description.length>100)
     {
         console.log("invalid description");
         res.status(204).json("invalid description");
@@ -710,6 +711,93 @@ exports.removeFav= function(req,res){
     });
 
 }
+
+exports.getAllProductsDetails= function(req,res){
+
+    console.log("entering into getAllUsers");
+    console.log("body: ",req.body);
+    
+    
+    dbConnection = db.getDbConnection();
+    var queryStatement = "select user_id from sessions where token ='"+req.headers.token+"'";
+
+    //console.log("query to be exectuted:: ",queryStatement);
+    console.log("query to be exectuted:: ",queryStatement);
+
+    dbConnection.query(queryStatement,function(err,result){
+       
+
+        if(err) {
+            console.log("error: ",err);
+            res.status(400).json(err);	
+        }	
+        else if(result.length>0){
+            var user_id=result[0].user_id;
+            console.log("user_id is "+user_id);
+       
+
+    
+   // var queryStatement = "select id, name , description, price, quantity from products where is_archived=0";
+    var queryStatement2 = "select id, name , description, price, quantity from products where id NOT IN(select product_id from favourites where user_id="+user_id+" )and is_archived=0 ";
+  
+    console.log("query to be exectuted:: ",queryStatement2);
+
+    dbConnection.query(queryStatement2,function(err,result2){
+		if(err) {
+			console.log("error: ",err);
+            res.status(400).json(err);	
+        }	
+		
+        
+           // console.log("success: ",result);
+           
+        else  if(result2.length>0){
+                console.log(result2);
+              //  res.status(200).json(result2);
+
+              var queryStatement3 = "select id, name , description, price, quantity from products where id IN(select product_id from favourites where user_id="+user_id+" )and is_archived=0 ";
+  
+            console.log("query to be exectuted:: ",queryStatement3);
+
+            dbConnection.query(queryStatement3,function(err,result3){
+	    	if(err) {
+			console.log("error: ",err);
+            res.status(400).json(err);	
+            }	
+
+            else if(result3.length>0){
+                console.log(result2);
+                console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+                console.log(result3);
+                res.status(200).json(result2);
+
+            }
+            else{
+                console.log(result3);
+                res.status(200).json(result3);
+            }
+		
+        
+        }); 
+            }
+            else{
+                console.log("no data found");
+                res.status(200).json("no data found");
+
+
+            }
+        
+       
+        console.log("exiting from getAllUsers");
+    });
+}
+else{
+    console.log("data not found")
+    res.status(204).json("data not found");
+}
+    });
+}
+    
 
             
                 
