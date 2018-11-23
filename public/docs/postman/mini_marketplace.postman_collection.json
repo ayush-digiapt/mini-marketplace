@@ -71,7 +71,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:3000/products/myProducts",
+			"name": "localhost:3000/products/seller/myproducts",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -81,11 +81,11 @@
 					},
 					{
 						"key": "token",
-						"value": "pdj29tf5eaie"
+						"value": "9bk7dntjp2pr"
 					}
 				],
 				"body": {},
-				"url": "localhost:3000/products/myProducts",
+				"url": "localhost:3000/products/seller/myproducts",
 				"description": "get seller products"
 			},
 			"response": []
