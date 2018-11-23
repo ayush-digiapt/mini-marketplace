@@ -9,11 +9,11 @@ var usersController = require("../controllers/users")
  
 
 /* POST create user. */
-router.post('/reg', usersController.createUser);
+router.post('/registration', usersController.createUser);
 
 
 /* get deletails user. */
-router.get('/', usersController.details);
+router.get('/details', usersController.details);
 
 
 

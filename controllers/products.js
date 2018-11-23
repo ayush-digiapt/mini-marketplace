@@ -712,9 +712,9 @@ exports.removeFav= function(req,res){
 
 }
 
-exports.getAllProductsDetails= function(req,res){
+exports.getNotFav= function(req,res){
 
-    console.log("entering into getAllUsers");
+    console.log("entering into getnotfav");
     console.log("body: ",req.body);
     
     
@@ -788,7 +788,7 @@ exports.getAllProductsDetails= function(req,res){
             }
         
        
-        console.log("exiting from getAllUsers");
+        console.log("exiting from getnotfav");
     });
 }
 else{

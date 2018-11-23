@@ -17,9 +17,9 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\":\"Ranka\",\n\t\"email\":\"ayu24720@gail.com\",\n\t\"password\":\"12345678\",\n\t\"mobile\":8978675678,\n\t\"role_id\":1,\n\t\"address_line1\":\"bangalore\",\n\t\"address_line2\":\"indoreahkfajf\",\n\t\"city\":\"bangalore\",\n\t\"state\":\"karnakata\",\n\t\"pincode\":989769,\n\t\"company_name\":\"ayush pvt\"\n\t\n}"
+					"raw": "{\n\t\"name\":\"Ranjit\",\n\t\"email\":\"ranjitkumar@gmail.com\",\n\t\"password\":\"12345678\",\n\t\"mobile\":8978675678,\n\t\"role_id\":2,\n\t\"address_line1\":\"bangalore\",\n\t\"address_line2\":\"indoreahkfajf\",\n\t\"city\":\"bangalore\",\n\t\"state\":\"karnakata\",\n\t\"pincode\":989769,\n\t\"company_name\":\"ranjit lmt\"\n\t\n}"
 				},
-				"url": "localhost:3000/users/reg",
+				"url": "localhost:3000/users/registration",
 				"description": "create users"
 			},
 			"response": []
@@ -49,7 +49,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:3000/roles",
+			"name": "localhost:3000/roles/",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -60,12 +60,12 @@
 			"response": []
 		},
 		{
-			"name": "localhost:3000/products",
+			"name": "localhost:3000/products/",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"body": {},
-				"url": "localhost:3000/products",
+				"url": "localhost:3000/products/",
 				"description": "get all products"
 			},
 			"response": []
@@ -114,7 +114,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:3000/products/edit/:id",
+			"name": "localhost:3000/products/:id",
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -124,14 +124,14 @@
 					},
 					{
 						"key": "token",
-						"value": "u7r8fwec46dh"
+						"value": "9bk7dntjp2pr"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\":\"laptop\",\n\t\"description\":\"HP charger\",\n\t\"price\":50000,\n\t\"quantity\":1\n\t\n}"
+					"raw": "{\n\t\"name\":\"pen\",\n\t\"description\":\"pen charger\",\n\t\"price\":50,\n\t\"quantity\":1\n\t\n}"
 				},
-				"url": "localhost:3000/products/edit/36",
+				"url": "localhost:3000/products/38",
 				"description": "edit product"
 			},
 			"response": []
@@ -159,7 +159,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:3000/products/removefav/:id",
+			"name": "localhost:3000/products/fav/remove/:id",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -169,14 +169,14 @@
 					},
 					{
 						"key": "token",
-						"value": "ec8p0yz8l5te"
+						"value": "jdao40fal1b3"
 					}
 				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\n}\n"
 				},
-				"url": "localhost:3000/products/removefav/19",
+				"url": "localhost:3000/products/fav/remove/44",
 				"description": "remove fav product"
 			},
 			"response": []
@@ -196,7 +196,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:3000/products/getfavproducts",
+			"name": "localhost:3000/products/fav/",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -206,20 +206,20 @@
 					},
 					{
 						"key": "token",
-						"value": "ozy9awgqk672"
+						"value": "jdao40fal1b3"
 					}
 				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
 				},
-				"url": "localhost:3000/products/getfavproducts",
+				"url": "localhost:3000/products/fav/",
 				"description": "get sellers products"
 			},
 			"response": []
 		},
 		{
-			"name": "localhost:3000/products/addfav/:id",
+			"name": "localhost:3000/products/fav/add/:id",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -229,14 +229,14 @@
 					},
 					{
 						"key": "token",
-						"value": "ec8p0yz8l5te"
+						"value": "jdao40fal1b3"
 					}
 				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
 				},
-				"url": "localhost:3000/products/addfav/19",
+				"url": "localhost:3000/products/fav/add/44",
 				"description": "add fav product"
 			},
 			"response": []
@@ -262,7 +262,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:3000/users",
+			"name": "localhost:3000/users/details",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -272,17 +272,17 @@
 					},
 					{
 						"key": "token",
-						"value": "5p8mdtjtym6z"
+						"value": "jdao40fal1b3"
 					}
 				],
 				"body": {},
-				"url": "localhost:3000/users",
+				"url": "localhost:3000/users/details",
 				"description": "get users name API"
 			},
 			"response": []
 		},
 		{
-			"name": "localhost:3000/products/data",
+			"name": "localhost:3000/products/notfav",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -292,11 +292,11 @@
 					},
 					{
 						"key": "token",
-						"value": "ndkimrj56t27"
+						"value": "jdao40fal1b3"
 					}
 				],
 				"body": {},
-				"url": "localhost:3000/products/data",
+				"url": "localhost:3000/products/notfav",
 				"description": "get non-fav products of users"
 			},
 			"response": []
