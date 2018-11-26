@@ -797,6 +797,134 @@ else{
 }
     });
 }
+
+exports.getProductsDetails= function(req,res){
+
+    console.log("entring in getProductsDetails")
+    console.log("in data");
+    console.log("before header");
+     console.log(req.headers.id);
+     console.log("after header");
+    id=req.headers.id;
+   
+console.log("id is *******"+id);
+    if(id===undefined){
+        id=0;
+    }
+    //res.status(200).json("in data");
+   // res.status(200).json(req.header.id);
+
+
+console.log("entering into getAllUsers");
+    console.log("body: ",req.body);
+    console.log(id);
+   // console.log("id lenght is "+id.length);
+        if(id.length>0){
+       // res.status(200).send("in success");
+
+       dbConnection = db.getDbConnection();
+
+       var queryStatement = "select id, name, description, price, quantity, seller_id from products where id="+id+" and is_archived=0";
+    
+       // console.log("query to be exectuted:: ",queryStatement);
+    
+        dbConnection.query(queryStatement,function(err,result){
+            if(err) {
+                console.log("error: ",err);
+                res.status(400).json(err);		
+            } 
+        
+              //  console.log("success: ",result);
+                else if(result.length > 0){
+                    var product_id=result[0].id;
+                    var name=result[0].name;
+                    var price=result[0].price;
+                    var description=result[0].description;
+                    var quantity=result[0].quantity;
+                    var seller_id=result[0].seller_id;
+               
+
+                   queryStatement2="select user_id , company_name from sellers where id="+seller_id+"";
+                   dbConnection.query(queryStatement2,function(err,result2){
+                       if(err){
+                           console.log(err);
+                           res.status(400).json(err);
+                       }
+                       else if(result2.length>0){
+                           var user_id=result2[0].user_id;
+                           var company_name=result2[0].company_name;
+
+                           queryStatement3="select name, role_id from users where id="+user_id+"";
+                           dbConnection.query(queryStatement3,function(err,result3){
+                            if(err){
+                                console.log(err);
+                                res.status(400).json(err);
+                            }
+                            else if(result3.length>0){
+                                var seller_name=result3[0].name;
+                             //   var role_id=result3[0].role_id;
+                            // var result4= "seller_name is "+seller_name + "company_name is "+company_name +"id is +"+id +" name is "+name + "description is "+description + "quantity is "+quantity+ "price is "+price;
+                          //  var result4= {seller_name,company_name,id,name,description,quantity,price};
+                                console.log([{seller_name,company_name,id,name,description,quantity,price}]);
+                                res.status(200).json([{seller_name,company_name,id,name,description,quantity,price}]);
+                             //   res.status(200).json({ result4});
+                            
+                            
+                        }
+                           });
+                       }
+
+                   });
+                
+                   // res.status(200).json(result);
+                }
+                else{
+                    console.log("data is not found");
+                    res.status(204).json("data is not found");
+                }
+                
+            
+            
+           // console.log("exiting from getOneProduct");
+        });
+    }
+
+
+
+    
+    else{
+        //res.status(200).send("in fail");
+    
+    
+    dbConnection = db.getDbConnection();
+    
+   var queryStatement = "select id, name , description, price, quantity from products where is_archived=0";
+ 
+  
+   // console.log("query to be exectuted:: ",queryStatement);
+
+    dbConnection.query(queryStatement,function(err,result){
+		if(err) {
+			console.log("error: ",err);
+            res.status(400).json(err);	
+        }	
+		
+        else{
+           console.log("success: ",result);
+            if(result.length === 0){
+                res.status(204).json("no user found");
+            } else {
+                res.status(200).json(result);
+            }
+        }
+       
+      //  console.log("exiting from getAllUsers");
+    });
+}
+console.log("exiting from getProductsDetails");
+}
+
+
     
 
             

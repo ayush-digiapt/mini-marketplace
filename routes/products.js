@@ -6,8 +6,16 @@ var productsController = require("../controllers/products")
  
 
 
-/* get all products. */
-router.get('/', productsController.getAllProducts);
+// /* get all products. */
+// router.get('/', productsController.getAllProducts);
+
+
+// /* get one products. */
+// router.get('/details/:id', productsController.getOneProduct);
+
+
+/* get roles. */
+router.get('/', productsController.getProductsDetails);
 
 
 /* get all products. */
@@ -31,8 +39,6 @@ router.get('/search/:search', productsController.search);
 router.get('/fav', productsController.getFavProducts);
 
 
-/* get one products. */
-router.get('/details/:id', productsController.getOneProduct);
 
 
 /* post add product. */

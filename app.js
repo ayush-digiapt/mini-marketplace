@@ -10,6 +10,7 @@ var productsRouter = require('./routes/products');
 var rolesRouter = require('./routes/roles');
 var authRouter = require('./routes/auth');
 
+
 var app = express();
 
 // view engine setup
@@ -27,6 +28,7 @@ app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 app.use('/products',productsRouter);
 app.use('/roles', rolesRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

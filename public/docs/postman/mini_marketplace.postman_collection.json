@@ -131,19 +131,8 @@
 					"mode": "raw",
 					"raw": "{\n\t\"name\":\"pen\",\n\t\"description\":\"pen charger\",\n\t\"price\":50,\n\t\"quantity\":1\n\t\n}"
 				},
-				"url": "localhost:3000/products/38",
+				"url": "localhost:3000/products/43",
 				"description": "edit product"
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:3000/products/details/:id",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {},
-				"url": "localhost:3000/products/1",
-				"description": "getOneProduct"
 			},
 			"response": []
 		},
@@ -153,7 +142,7 @@
 				"method": "DELETE",
 				"header": [],
 				"body": {},
-				"url": "localhost:3000/products/35",
+				"url": "localhost:3000/products/43",
 				"description": "delete product"
 			},
 			"response": []
